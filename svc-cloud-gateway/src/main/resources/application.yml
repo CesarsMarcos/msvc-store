@@ -1,0 +1,14 @@
+server:
+  port: 8080
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: svc-especialistas
+        uri: lb://svc-especialistas
+        predicates:
+        - Path=/especialistas/**
+      - id: svc-usuarios
+        uri: lb://svc-usuarios
+        predicates:
+        - Path=/usuarios/**
