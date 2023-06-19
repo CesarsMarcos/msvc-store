@@ -1,14 +1,25 @@
-server:
-  port: 8080
 spring:
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
       routes:
-      - id: svc-especialistas
-        uri: lb://svc-especialistas
+      - id: svc-clientes
+        uri: lb://svc-clientes
         predicates:
-        - Path=/especialistas/**
-      - id: svc-usuarios
-        uri: lb://svc-usuarios
+          - Path=/clientes/**
+        filters:
+          - StripPrefix=1
+      - id: svc-productos
+        uri: lb://svc-productos
         predicates:
-        - Path=/usuarios/**
+          - Path=/productos/**
+        filters:
+          - StripPrefix=1
+      - id: svc-ventas
+        uri: lb://svc-ventas
+        predicates:
+          - Path=/ventas/**
+        filters:
+          - StripPrefix=1

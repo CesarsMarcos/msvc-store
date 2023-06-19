@@ -16,11 +16,15 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name="tb_productos")
+@AllArgsConstructor @NoArgsConstructor @Builder
 public class Producto {
 
 	@Id
@@ -39,7 +43,7 @@ public class Producto {
 	
 	@Column(name = "create_at")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date creatAt;
+	private Date createAt;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="categoria_id")

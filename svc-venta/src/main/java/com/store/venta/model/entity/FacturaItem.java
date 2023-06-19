@@ -20,7 +20,9 @@ public class FacturaItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Double cantidad;
+	
+	private Integer cantidad;
+	
 	private Double precio;
 
 	@Column(name = "producto_id")
@@ -41,7 +43,7 @@ public class FacturaItem {
 	}
 
 	public FacturaItem() {
-		this.cantidad = (double) 0;
+		this.cantidad = (int) 0;
 		this.precio = (double) 0;
 
 	}

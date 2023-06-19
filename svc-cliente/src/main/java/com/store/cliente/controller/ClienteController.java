@@ -33,7 +33,7 @@ public class ClienteController {
 	private final IClienteService clienteService;
 
 	@GetMapping
-	public ResponseEntity<List<Cliente>> productos(@RequestParam(name = "id", required = false) Long id) {
+	public ResponseEntity<List<Cliente>> clientes(@RequestParam(name = "id", required = false) Long id) {
 		List<Cliente> lista = new ArrayList<>();
 		if (null == id) {
 			lista = clienteService.clientes();
@@ -52,8 +52,8 @@ public class ClienteController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> cliente(@PathVariable("id") Long id) {
-		Cliente clienteSave = clienteService.getRegion(id);
+	public ResponseEntity<Cliente> getCliente(@PathVariable("id") Long id) {
+		Cliente clienteSave = clienteService.clientePorId(id);
 		if (clienteSave == null) {
 			return ResponseEntity.notFound().build();
 		}

@@ -28,9 +28,9 @@ public class FacturaController {
 	private final Logger logger = LoggerFactory.getLogger(FacturaController.class);
 
 	private final IFacturaService facturaService;
-
+	
 	@GetMapping
-	public ResponseEntity<List<Factura>> listAllInvoices() {
+	public ResponseEntity<List<Factura>> listAllFactura() {
 		List<Factura> factura = facturaService.findFacturaAll();
 		if (factura.isEmpty()) {
 			return ResponseEntity.noContent().build();
@@ -50,14 +50,14 @@ public class FacturaController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Factura> createInvoice(@RequestBody Factura factura) {
+	public ResponseEntity<Factura> crearFactura(@RequestBody Factura factura) {
 		logger.info("Creating Factura : {}", factura);
-		Factura facturaDB = facturaService.crearFactura(factura);
-		return ResponseEntity.status(HttpStatus.CREATED).body(facturaDB);
+		Factura facturaSave = facturaService.crearFactura(factura);
+		return ResponseEntity.status(HttpStatus.CREATED).body(facturaSave);
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<?> updateInvoice(@PathVariable("id") long id, @RequestBody Factura factura) {
+	public ResponseEntity<?> updateFactura(@PathVariable("id") long id, @RequestBody Factura factura) {
 		logger.info("Updating Factura with id {}", id);
 
 		factura.setId(id);
@@ -71,7 +71,7 @@ public class FacturaController {
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Factura> deleteInvoice(@PathVariable("id") long id) {
+	public ResponseEntity<Factura> deleteFactura(@PathVariable("id") long id) {
 		logger.info("Factura & Deleting Invoice with id {}", id);
 
 		Factura factura = facturaService.getFactura(id);

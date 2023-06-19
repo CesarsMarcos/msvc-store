@@ -15,10 +15,10 @@ public interface ProductoService {
 
 	public Producto modificar(Producto producto);
 
-	public void eliminar(Long id);
+	public Producto eliminar(Long id);
 
 	public List<Producto> findByCategoria(Categoria categoria);
 
-	public Producto updateStock(Long id, Double cantidad);
+	public Producto updateStock(Long id, Integer cantidad);
 
 }

@@ -1,5 +1,6 @@
 package com.store.producto.model.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class ProductoServiceImpl implements ProductoService {
 
 	private final ProductoRepository productoRepo;
-	
+
 	@Override
 	public List<Producto> listAllProducto() {
 		return productoRepo.findAll();
@@ -23,22 +24,38 @@ public class ProductoServiceImpl implements ProductoService {
 
 	@Override
 	public Producto getProducto(Long id) {
-		return productoRepo.findById(id).get();
+		return productoRepo.findById(id).orElse(null);
 	}
 
 	@Override
 	public Producto registro(Producto producto) {
+		producto.setEstado("CREATED");
+		producto.setCreateAt(new Date());
+
 		return productoRepo.save(producto);
 	}
 
 	@Override
 	public Producto modificar(Producto producto) {
-		return productoRepo.save(producto);
+		Producto productoSave = getProducto(producto.getId());
+		if (null == productoSave) {
+			return null;
+		}
+		productoSave.setNombre(producto.getNombre());
+		productoSave.setDescripcion(producto.getDescripcion());
+		productoSave.setCategoria(producto.getCategoria());
+		productoSave.setPrecio(producto.getPrecio());
+		return productoRepo.save(productoSave);
 	}
 
 	@Override
-	public void eliminar(Long id) {
-		productoRepo.deleteById(id);
+	public Producto eliminar(Long id) {
+		Producto productoSave = getProducto(id);
+		if (null == productoSave) {
+			return null;
+		}
+		productoSave.setEstado("DELETED");
+		return productoRepo.save(productoSave);
 	}
 
 	@Override
@@ -47,8 +64,18 @@ public class ProductoServiceImpl implements ProductoService {
 	}
 
 	@Override
-	public Producto updateStock(Long id, Double cantidad) {
-		return null;
+	public Producto updateStock(Long id, Integer cantidad) {
+
+		Producto productoSave = getProducto(id);
+
+		if (productoSave == null) {
+			return null;
+		}
+
+		Integer stock = productoSave.getStock() + cantidad;
+		productoSave.setStock(stock);
+
+		return productoRepo.save(productoSave);
 	}
 
 }
