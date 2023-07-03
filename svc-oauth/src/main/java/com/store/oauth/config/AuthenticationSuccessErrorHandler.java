@@ -42,6 +42,13 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 		String mensaje = "Success login: "+username;
 		logger.info(mensaje);
 		
+		
+		Usuario usuario =  usuarioService.usuarioPorUserName(authentication.getName()).getBody();
+		if(usuario.getIntentos() != null && usuario.getIntentos() > 0) {
+			usuario.setIntentos(0);
+			//usuarioService.modiciar(usuario, usuario.getIdUsuario());
+		}
+		
 	}
 
 	@Override
@@ -53,6 +60,18 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 		try {
 			Usuario usuario =  usuarioService.usuarioPorUserName(authentication.getName()).getBody();
 			
+			if(usuario.getIntentos() == null) {
+				usuario.setIntentos(0);
+			}
+			
+			usuario.setIntentos(usuario.getIntentos() +1);
+			
+			if(usuario.getIntentos() >= 3) {
+				usuario.setIndBaja("S");
+			}
+			
+			
+			//usuarioService.modiciar(usuario, usuario.getIdUsuario());
 			
 		} catch (FeignException e) {
 			// TODO: handle exception

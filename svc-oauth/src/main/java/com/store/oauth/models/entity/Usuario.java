@@ -32,6 +32,8 @@ public @Data class Usuario implements Serializable {
 	private String correoPersonal;
 
 	private String password;
+	
+	private Integer intentos;
 
 	private String indBaja;
 
