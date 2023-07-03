@@ -1,6 +1,7 @@
 package com.store.usuarios.model.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +16,6 @@ public interface IUsuarioRepository  extends JpaRepository<Usuario, Long>{
 	@Query("SELECT u FROM Usuario u WHERE u.indBaja ='N'")
 	List<Usuario> usuariosActivos();
 	
-	Usuario findByUsuario(String username);
+	Optional<Usuario> findByUsuario(String username);
 	
 }

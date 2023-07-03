@@ -63,7 +63,9 @@ public @Data class Usuario implements Serializable {
 	//@NotNull(message = "el  password de empresa no puede estar vacio")
 	@Column(name = "PASSWORD")
 	private String password;
-
+	
+	private Integer intentos;
+	
 	@Column(name = "IND_BAJA")
 	private String indBaja;
 

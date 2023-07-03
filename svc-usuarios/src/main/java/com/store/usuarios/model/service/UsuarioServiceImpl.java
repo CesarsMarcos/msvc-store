@@ -1,6 +1,7 @@
 package com.store.usuarios.model.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +27,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	}
 
 	@Override
-	public Usuario modificar(Usuario usuario) {
-		// TODO Auto-generated method stub
-		return null;
+	public Usuario modificar(String userName, Usuario usuario) {
+
+		Optional<Usuario> usuarioSave = usuarioRepo.findByUsuario(userName);
+
+		if (usuarioSave.isEmpty()) {
+			logger.error("El usuario '" + userName + "' no existe ");
+		}
+		usuarioSave.get().setIntentos(usuario.getIntentos());
+		return usuarioRepo.save(usuarioSave.get());
 	}
 
 	@Override
@@ -57,13 +64,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Override
 	public Usuario obtenerPorUsuario(String userName) {
-		Usuario usuarioSave = usuarioRepo.findByUsuario(userName);
-		
-		if(usuarioSave == null) {
-			logger.error("El usuario '"+userName+"' no existe ");
+		Optional<Usuario> usuarioSave = usuarioRepo.findByUsuario(userName);
+
+		if (usuarioSave == null) {
+			logger.error("El usuario '" + userName + "' no existe ");
 		}
-		
-		return usuarioSave;
+
+		return usuarioSave.get();
 	}
 
 }

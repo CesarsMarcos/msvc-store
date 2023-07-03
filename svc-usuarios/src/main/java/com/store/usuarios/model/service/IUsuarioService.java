@@ -7,7 +7,7 @@ public interface IUsuarioService {
 
 	public Usuario registrar(Usuario usuario);
 
-	public Usuario modificar(Usuario usuario);
+	public Usuario modificar(String userName, Usuario usuario);
 
 	public Usuario obtenerPorId(Long idUsuario);
 
