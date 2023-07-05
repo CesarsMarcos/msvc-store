@@ -23,3 +23,15 @@ spring:
           - Path=/ventas/**
         filters:
           - StripPrefix=1
+      - id: svc-usuarios
+        uri: lb://svc-usuarios
+        predicates:
+          - Path=/usuarios/**
+        filters:
+          - StripPrefix=1
+      - id: svc-oauth
+        uri: lb://svc-oauth
+        predicates:
+          - Path=/api/security/**
+        filters:
+          - StripPrefix=2
