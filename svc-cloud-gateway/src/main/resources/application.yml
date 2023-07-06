@@ -8,27 +8,27 @@ spring:
       - id: svc-clientes
         uri: lb://svc-clientes
         predicates:
-          - Path=/clientes/**
+          - Path=/api/clientes/**
         filters:
-          - StripPrefix=1
+          - StripPrefix=2
       - id: svc-productos
         uri: lb://svc-productos
         predicates:
-          - Path=/productos/**
+          - Path=/api/productos/**
         filters:
-          - StripPrefix=1
+          - StripPrefix=2
       - id: svc-ventas
         uri: lb://svc-ventas
         predicates:
-          - Path=/ventas/**
+          - Path=/api/ventas/**
         filters:
-          - StripPrefix=1
+          - StripPrefix=2
       - id: svc-usuarios
         uri: lb://svc-usuarios
         predicates:
-          - Path=/usuarios/**
+          - Path=/api/usuarios/**
         filters:
-          - StripPrefix=1
+          - StripPrefix=2
       - id: svc-oauth
         uri: lb://svc-oauth
         predicates:
