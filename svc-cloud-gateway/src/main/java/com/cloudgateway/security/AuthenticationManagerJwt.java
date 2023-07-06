@@ -38,7 +38,7 @@ public class AuthenticationManagerJwt implements ReactiveAuthenticationManager{
 					List<String> roles = claims.get("authorities",  List.class);
 					Collection<GrantedAuthority> authorities = roles.stream().map(SimpleGrantedAuthority :: new)
 							.collect(Collectors.toList());
-					return new UsernamePasswordAuthenticationToken(username,authorities);
+					return new UsernamePasswordAuthenticationToken(username,null,authorities);
 				});
 	}
 	
